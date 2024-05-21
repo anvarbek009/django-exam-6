@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+    <title>{% block title %} Books {% endblock %} </title>
+
+{% block content %}
+<h1>Book Page</h1>
+{% for w in watchs %}
+    <a href="{% url  'watchs:watch_detail' b.pk %}"> {{ w.title}}</a><br><br>
+{% endfor %}
+{% endblock content %}

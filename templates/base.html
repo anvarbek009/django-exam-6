@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %} {% endblock %}</title>
+
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            text-decoration: none;
+            list-style: none;
+        }
+        .home-div{
+            background-color: bisque;
+            height: 100px;
+            padding:30px;
+            color: blueviolet;
+            font-size: 20px;
+            text-align: center;
+            align-items: center;
+        }
+        footer{
+            background-color: gray;
+            color: white;
+            height: 200px;
+            padding: 40px;
+        }
+        .footer{
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo{
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+        }
+        .header-ul{
+            display: flex;
+            justify-content: space-between;
+            width: 300px;
+        }
+        .navbar{
+            max-width: 500px;
+            font-size: 30px;
+            display: flex;
+            margin: 0 auto;
+            max-width: 1200px;
+            justify-content: space-between;
+            align-items: center;
+
+        }
+        header{
+            background-color: rgb(102, 224, 255);   
+            padding: 10px;           
+        }
+        .auth-buttons{
+            background-color: rgb(102, 224, 255);
+            padding: 10px;
+            border-radius: 10px;
+            color: white;
+            font-size: 20px;
+            font-weight: 600;
+            text-decoration: none;
+            text-align: center;
+            width: 150px;
+            height: 50px;
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+    {% if messages %}
+    <div>
+        <ul class="messages">
+            {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>
+                {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}Important: {% endif %}
+                {{ message }}
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+    <header>
+        <div class="navbar">
+            <img class="logo" src="https://static.vecteezy.com/system/resources/previews/012/669/399/original/logo-clock-shop-design-monochrome-element-with-old-watch-illustration-with-text-vintage-retro-style-watchshop-and-service-concept-for-symbols-emblems-and-labels-design-template-vector.jpg" alt="clock">
+            <nav>
+                <ul class="header-ul">
+                    <li><a href="{% url 'home:home_page' %}">Home</a></li>
+                    <li><a href="{% url 'clocks:watch_list' %}">Watches</a></li>
+                    <li><a href="#"></a></li>
+                    
+                </ul>
+            </nav>
+            <div>
+                {% if request.user.is_authenticated %}
+                    <button class="auth-buttons"><a href="{% url 'users:profile' %}">Profile</a></button>
+                    <button class="auth-buttons"><a href="{% url 'users:logout' %}">Logout</a></button>
+                {% else %}
+                    <button class="auth-buttons"><a href="{% url 'users:register' %}">Register</a></button>
+                    <button class="auth-buttons"><a href="{% url 'users:login' %}">Login</a></button>
+                {% endif %}            
+            </div>
+        </div>
+
+
+    </header>
+
+
+    {% block content %} {% endblock %}
+
+
+
+    <footer>
+        <div class="footer">
+            <img class="logo" src="https://static.vecteezy.com/system/resources/previews/012/669/399/original/logo-clock-shop-design-monochrome-element-with-old-watch-illustration-with-text-vintage-retro-style-watchshop-and-service-concept-for-symbols-emblems-and-labels-design-template-vector.jpg" alt="clock">
+            <p style="max-width: 700px;">
+                Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
+                Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+                It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+            </p>
+            <p>Copyright &copy; 2024</p>
+        </div>
+     </footer>
+</body>
+</html>
