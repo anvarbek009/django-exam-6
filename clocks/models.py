@@ -46,16 +46,15 @@ class Review(models.Model):
     def __str__(self):
         return f'Review {self.comment} by {self.user}' 
 # ----------------------------------------------------------------
-# class Order(models.Model):
-#     user=models.CharField(max_length=100)
-#     number=models.IntegerField()
+class Order(models.Model):
+    user=models.CharField(max_length=100)
+    number=models.IntegerField()
 
-#     class Meta:
-#         db_table = 'order'
+    class Meta:
+        db_table = 'order'
 
-#     def __str__(self):
-#         return self.number
-# Ishlamadi
+    def __str__(self):
+        return self.number
 # ------------------------------------------------
 
 class Cart(models.Model):
