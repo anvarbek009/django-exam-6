@@ -3,19 +3,18 @@ from users.models import CustomUser
 from django.core.validators import MaxValueValidator, MinValueValidator 
 # Create your models here.
 
-class CategoryWatch(models.Model):
-    name=models.CharField(max_length=100)
+# class CategoryWatch(models.Model):
+#     name=models.CharField(max_length=100)
 
-    class Meta:
-        db_table = 'category_watch'
+#     class Meta:
+#         db_table = 'category_watch'
 
-    def __str__(self):
-        return self.name
+#     def __str__(self):
+#         return self.name
     
 
 class Watch(models.Model):
     name=models.CharField(max_length=100)
-    category=models.ForeignKey(CategoryWatch,on_delete=models.CASCADE)
     image=models.ImageField(upload_to='watch_images/',blank=True,null=True,default='default_images/watch_image.png')
     price=models.IntegerField()
     description=models.TextField()
@@ -45,21 +44,7 @@ class Review(models.Model):
         db_table = 'review'
 
     def __str__(self):
-        return self.review
-    
-
-class Cart(models.Model):
-    user=models.ForeignKey(CustomUser,on_delete=models.CASCADE)
-    watch=models.ForeignKey(Watch,on_delete=models.CASCADE)
-    quantity=models.IntegerField()
-    created_at=models.DateTimeField(auto_now_add=True)
-
-    class Meta:
-        db_table = 'cart'
-
-    def __str__(self):
-        return self.watch.name
-    
+        return f'Review {self.comment} by {self.user}' 
 
 class Order(models.Model):
     user=models.CharField(max_length=100)

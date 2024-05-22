@@ -1,12 +1,19 @@
-from django.views.generic import ListView, DetailView, UpdateView, CreateView, DeleteView
 from django.shortcuts import render,redirect
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views import View
-from .models import CategoryWatch,Review,Watch
+from .models import Review,Watch
 from .forms import AddReviewForm,UpdateReviewForm
 from django.urls import reverse_lazy
 from django.http import HttpResponseRedirect 
 from django.contrib import messages
+
+# class WatchCategoryView(View):
+#     def get(self, request):
+#         category_watchs = CategoryWatch.objects.all()
+#         context = {
+#             'category_watchs': category_watchs
+#         }
+#         return render(request, 'base.html', context=context)
 
 class WatchListView(View):
     def get(self, request):
@@ -29,31 +36,36 @@ class WatchDetailView(View):
         }
 
         return render(request, 'watch/watch_detail.html', context=context)
-
+       
 class AddReviewView(LoginRequiredMixin, View):
     def get(self, request, pk):
-        watchs = Watch.objects.get(pk=pk)
+        watch = Watch.objects.get(pk=pk)
         add_review_form = AddReviewForm()
         context = {
-            'watchs': watchs,
+            'watch': watch,
             'add_review_form': add_review_form
         }
         return render(request, 'watch/add_review.html', context=context)
 
     def post(self, request, pk):
-        watchs = Watch.objects.get(pk=pk)
+        watch = Watch.objects.get(pk=pk)
         add_review_form = AddReviewForm(request.POST)
         if add_review_form.is_valid():
             review = Review.objects.create(
                 comment=add_review_form.cleaned_data['comment'],
-                watch=watchs,
+                watch=watch,
                 user=request.user,
                 rating=add_review_form.cleaned_data['rating']
             )
-
             review.save()
             messages.success(request, "Comment qo'shildi.")
-            return redirect('products:watch_detail', pk=pk) 
+            return redirect('products:watch_detail', pk=pk)
+        else:
+            context = {
+                'watch': watch,
+                'add_review_form': add_review_form
+            }
+            return render(request, 'watch/add_review.html', context=context)
 
 class ReviewDeleteView(View):
     def post(self, request, pk):

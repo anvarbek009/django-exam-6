@@ -2,8 +2,15 @@
     <title>{% block title %} Books {% endblock %} </title>
 
 {% block content %}
-<h1>Book Page</h1>
-{% for w in watchs %}
-    <a href="{% url  'watchs:watch_detail' b.pk %}"> {{ w.title}}</a><br><br>
-{% endfor %}
+<div class="cards">
+    {% for w in watchs %}
+        <div class="card">
+            <img class="watch-img" src="{{ w.image.url }}" alt="its">
+            <h2>{{w.name}}</h2>
+            <p class="price">${{ w.price }}</p>
+            <p><a href="{% url  'clocks:watch_detail' w.pk %}"><button class="card-buttonss"> Batafsil ma'lumot</button></a></p>
+        </div>
+    {% endfor %}
+</div>
+
 {% endblock content %}

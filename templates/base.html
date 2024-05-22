@@ -63,7 +63,7 @@
             background-color: rgb(102, 224, 255);
             padding: 10px;
             border-radius: 10px;
-            color: white;
+            color: rgb(0, 0, 0);
             font-size: 20px;
             font-weight: 600;
             text-decoration: none;
@@ -71,6 +71,59 @@
             width: 150px;
             height: 50px;
             margin: 10px;
+        }
+        .auth-buttons:hover{
+            background-color: rgb(0, 0, 0);
+            color: rgb(255, 255, 255);
+            border: none;
+            cursor: pointer;
+        }
+        .watch-img{
+            width: 200px;
+            height: 200px;
+            border-radius: 15px;
+            margin: 10px;
+        }
+        .card {
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            max-width: 250px;
+            border-radius: 10px;
+            text-align: center;
+            font-family: arial;
+        }
+        .cards{
+            padding-top: 20px;
+            padding-bottom: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            margin: 0 auto;
+            max-width: 1200px;
+        }
+
+        .card button{
+            border: none;
+            outline: 0;
+            padding: 12px;
+            color: white;
+            background-color: #000;
+            text-align: center;
+            cursor: pointer;
+            width: 100%;
+            border-bottom-left-radius: 10px;
+            border-bottom-right-radius: 10px;
+            font-size: 18px;
+        }
+
+        .card button:hover {
+            opacity: 0.7;
+        }
+
+        .price {
+            margin: 10px;
+            color: grey;
+            font-size: 22px;
         }
     </style>
 </head>
@@ -94,17 +147,20 @@
                 <ul class="header-ul">
                     <li><a href="{% url 'home:home_page' %}">Home</a></li>
                     <li><a href="{% url 'clocks:watch_list' %}">Watches</a></li>
-                    <li><a href="#"></a></li>
+                    {% for i in  category_watshs %}
+                        <li><a href="#">{{i.name}}</a></li>
+                    {% endfor %}
+                    
                     
                 </ul>
             </nav>
             <div>
                 {% if request.user.is_authenticated %}
-                    <button class="auth-buttons"><a href="{% url 'users:profile' %}">Profile</a></button>
-                    <button class="auth-buttons"><a href="{% url 'users:logout' %}">Logout</a></button>
+                    <a href="{% url 'users:profile' %}"><button class="auth-buttons">Profile</button></a>
+                    <a href="{% url 'users:logout' %}"><button class="auth-buttons">Logout</button></a>
                 {% else %}
-                    <button class="auth-buttons"><a href="{% url 'users:register' %}">Register</a></button>
-                    <button class="auth-buttons"><a href="{% url 'users:login' %}">Login</a></button>
+                    <a href="{% url 'users:register' %}"><button class="auth-buttons">Register</a></button>
+                    <a href="{% url 'users:login' %}"><button class="auth-buttons">Login</button></a>
                 {% endif %}            
             </div>
         </div>

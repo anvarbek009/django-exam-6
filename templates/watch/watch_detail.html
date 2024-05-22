@@ -1,12 +1,12 @@
 {% extends "base.html" %}
-    <title>{% block title %}{{ watch.title }}{% endblock %} </title>
+    <title>{% block title %}{{ watch.name }}{% endblock %} </title>
 
 {% block content %}
-    <h1>{{ watch.title }}</h1>   
+    <h1>{{ watch.name }}</h1>   
     <img src="{{ watch.image.url }}" alt="its">
     <h4>Description: {{watch.description}}</h4>
     <h4>Price: {{watch.price}}</h4>
-    <h4>Page: {{watch.page}}</h4> 
+    <h4>Created at: {{watch.created_at}}</h4> 
 
     <hr><hr>
     <h2>Reviews</h2>
