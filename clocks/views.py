@@ -1,7 +1,7 @@
 from django.shortcuts import render,redirect,get_object_or_404
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views import View
-from .models import Review,Watch,Order
+from .models import Review,Watch,Order,Cart, CartItem
 from .forms import AddReviewForm,UpdateReviewForm,OrderForm
 from django.urls import reverse_lazy
 from django.http import HttpResponseRedirect 
@@ -76,13 +76,40 @@ class AddReviewView(LoginRequiredMixin, View):
             }
             return render(request, 'watch/add_review.html', context=context)
 
+class AddToCartView(View):
+    def post(self, request, pk):
+        watch = get_object_or_404(Watch, pk=pk)
+        cart, created = Cart.objects.get_or_create(user=request.user, is_active=True)
+        cart_item, created = CartItem.objects.get_or_create(cart=cart, watch=watch)
+        if not created:
+            cart_item.quantity += 1
+            cart_item.save()
+        messages.success(request, "Watch added to cart successfully.")
+        return redirect('clocks:watch_detail', pk=pk)
+    
+class CartView(View):
+    def get(self, request):
+        cart = Cart.objects.get(user=request.user, is_active=True)
+        cart_items = CartItem.objects.filter(cart=cart)
+        context = {
+            'cart': cart,
+            'cart_items': cart_items
+        }
+        return render(request, 'watch/cart.html', context)
+    
+class RemoveFromCartView(View):
+    def post(self, request, pk):
+        cart_item = get_object_or_404(CartItem, pk=pk)
+        cart_item.delete()
+        messages.success(request, "Item removed from cart.")
+        return redirect('clocks:cart')
 class ReviewDeleteView(View):
     def post(self, request, pk):
         review = Review.objects.get(pk=pk)
         watch_pk = review.watch.pk
         review.delete()
         messages.success(request, "Comment o'chirildi.")
-        return HttpResponseRedirect(reverse_lazy('products:watch_detail', kwargs={'pk': watch_pk}))     
+        return HttpResponseRedirect(reverse_lazy('clocks:watch_detail', kwargs={'pk': watch_pk}))     
 class ReviewUpdateView(View):
     def get(self, request, pk):
         data = Review.objects.get(pk=pk)
@@ -96,7 +123,26 @@ class ReviewUpdateView(View):
             update_review.watch_id = update.watch_id
             update_review.save()
             messages.success(request, "Comment o'zgartirildi.")
-            return redirect('products:watch_detail', pk=update.watch_id) 
+            return redirect('clocks:watch_detail', pk=update.watch_id) 
         else:
             messages.error(request, "Comment o'zgartirilmadi.")
-            return render(request, 'watch/update_review.html', {'form': update_form}) 
+            context={
+                'form': update_form
+            }
+            return render(request, 'watch/update_review.html', context=context) 
+        
+class TopExpensiveWatchesView(View):
+    def get(self, request):
+        top_expensive_watches = Watch.objects.order_by('-price')[:3]
+        context = {
+            'watches': top_expensive_watches
+            }
+        return render(request, 'watch/top_expensive.html', context=context)
+
+class TopCheapWatchesView(View):
+    def get(self, request):
+        top_cheap_watches = Watch.objects.order_by('price')[:3]
+        context = {
+            'watches': top_cheap_watches
+            }
+        return render(request, 'watch/top_cheap.html', context=context)

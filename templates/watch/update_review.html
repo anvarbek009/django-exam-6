@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+<title>{% block title  %} Create Watch  {% endblock %}</title>
+{% block content %}
+<div class="add_review-center">
+    <div class="center-content">
+        <h1 class="watch-name">{{ watch.name }}</h1>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Save</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

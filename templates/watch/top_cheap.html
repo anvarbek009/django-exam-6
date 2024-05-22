@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block title %}Top cheap{% endblock %}
+{% block content %}
+    <div class="cards">
+        {% for w in watches %}
+            <div class="card">
+                <img class="watch-img" src="{{ w.image.url }}" alt="its">
+                <h2>{{w.name}}</h2>
+                <p class="price">${{ w.price }}</p>
+                <p><a href="{% url  'clocks:watch_detail' w.pk %}"><button class="card-buttonss"> Batafsil ma'lumot</button></a></p>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

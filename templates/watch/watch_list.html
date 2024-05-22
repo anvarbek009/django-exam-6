@@ -20,17 +20,7 @@
                         <p><a href="{% url  'clocks:watch_detail' w.pk %}"><button class="card-buttonss"> Batafsil ma'lumot</button></a></p>
                     </div>
                 {% endfor %}
-
-                <div class="update-order-form">
-                    <h2>Update Order</h2>
-                    <form method="post">
-                        {% csrf_token %}
-                        {{ form.as_p }}
-                        <button type="submit">Update</button>
-                    </form>
-                </div>
             </div>
-
         {% else %}
 
         {% endif %}

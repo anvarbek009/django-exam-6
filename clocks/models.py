@@ -55,3 +55,25 @@ class Order(models.Model):
 
     def __str__(self):
         return self.number
+    
+class Cart(models.Model):
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    is_active = models.BooleanField(default=True)
+
+    class Meta:
+        db_table = 'cart'
+
+    def __str__(self):
+        return f"{self.user.username}'s cart"
+
+class CartItem(models.Model):
+    cart = models.ForeignKey(Cart, on_delete=models.CASCADE, related_name='items')
+    watch = models.ForeignKey(Watch, on_delete=models.CASCADE)
+    quantity = models.PositiveIntegerField(default=1)
+
+    class Meta:
+        db_table = 'cart_item'
+
+    def __str__(self):
+        return f"{self.quantity} of {self.watch.name}"
+    

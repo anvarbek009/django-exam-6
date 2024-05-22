@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="cart-container">
+        <h1 class="cart-header">Your Cart</h1>
+        {% for item in cart_items %}
+            <div class="cart-item">
+                <img src="{{ item.watch.image.url }}" alt="{{ item.watch.name }}">
+                <div class="cart-item-details">
+                    <h2>{{ item.watch.name }}</h2>
+                    <p>Quantity: {{ item.quantity }}</p>
+                    <p>Price: ${{ item.watch.price }}</p>
+                </div>
+                <div class="cart-item-actions">
+                    <form method="post" action="{% url 'clocks:remove_from_cart' item.pk %}">
+                        {% csrf_token %}
+                        <button type="submit">Remove</button>
+                    </form>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
