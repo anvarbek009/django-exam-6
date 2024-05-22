@@ -55,12 +55,67 @@
             align-items: center;
 
         }
+        /* Styles for the profile card container */
+        .card-profile {
+            max-width: 300px;
+            margin: 20px auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            background-color: #fff;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Styles for the profile image */
+        .card-profile img {
+            border-radius: 50%;
+            margin-bottom: 15px;
+        }
+
+        /* Styles for the username */
+        .card-profile h2 {
+            margin: 10px 0;
+            font-size: 24px;
+            color: #333;
+        }
+
+        /* Styles for the email and names */
+        .card-profile h3 {
+            margin: 5px 0;
+            font-size: 18px;
+            color: #666;
+        }
+
+        /* Styles for the button container */
+        .card-profile button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        /* Styles for the link inside the button */
+        .card-profile button a {
+            color: white;
+            text-decoration: none;
+        }
+
+        /* Hover effect for the button */
+        .card-profile button:hover {
+            background-color: #0056b3;
+        }
         header{
             background-color: rgb(102, 224, 255);   
             padding: 10px;           
         }
         .auth-buttons{
-            background-color: rgb(102, 224, 255);
+            background:none;
             padding: 10px;
             border-radius: 10px;
             color: rgb(0, 0, 0);
@@ -93,6 +148,7 @@
         }
         .cards{
             padding-top: 20px;
+            margin-top: 30px;
             padding-bottom: 20px;
             display: flex;
             flex-wrap: wrap;
@@ -119,17 +175,254 @@
         .card button:hover {
             opacity: 0.7;
         }
+        .inputt{
+            padding: 10px;
+            font-size: 17px;
+            border: 1px solid grey;
+            float: left;
+            width: 80%;
+            background: #f1f1f1;
+            max-width: 250px;
+        }
+        .button-search{
+            float: left;
+            width: 20%;
+            padding: 10px;
+            background: #2196F3;
+            color: white;
+            font-size: 17px;
+            max-width: 100px;
+            border: 1px solid grey;
+            border-left: none;
+            cursor: pointer;
+        }
+        .button-search:hover{
+            background: #0b7dda;
+        }
 
+        .example-form::after {
+            content: "";
+            clear: both;
+            display: table;
+            padding: 30px;
+            margin: 30px;
+        }
         .price {
             margin: 10px;
             color: grey;
             font-size: 22px;
         }
-    </style>
+        .message-m {
+            margin: 20px 0;
+            padding: 10px;
+            border-radius: 5px;
+            font-family: Arial, sans-serif;
+        }
+
+        .messages {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .messages li {
+            margin: 5px 0;
+            padding: 10px;
+            border-radius: 3px;
+            color: #fff;
+        }
+
+        .messages li.success {
+            background-color: #4CAF50;
+        }
+
+        .messages li.error {
+            background-color: #F44336; 
+        }
+
+        .messages li.warning {
+            background-color: #FF9800; 
+        }
+
+        .messages li.info {
+            background-color: #2196F3;
+        }
+
+        .messages li.default {
+            background-color: #9E9E9E;
+        }
+        .messages li {
+            border: 1px solid transparent;
+            transition: border 0.3s ease-in-out;
+        }
+        .messages li:hover {
+            border: 1px solid #fff;
+        }
+        /* Card styling */
+        .carddd {
+            background-color: #f9f9f9;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            max-width: 600px;
+            margin: 20px auto;
+            text-align: center;
+        }
+
+        .carddd h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .carddd img.watch-img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .carddd h4 {
+            font-size: 18px;
+            margin: 10px 0;
+        }
+
+        .button-like:hover {
+            background-color: #0056b3;
+        }
+
+        .reviews {
+            margin-top: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .review-button{
+            background-color: black;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+        .add-review-btn {
+            margin-bottom: 10px;
+            background-color: black;
+        }
+
+        .review-item {
+            margin-bottom: 20px;
+        }
+
+        .review-user {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .review-rating {
+            font-style: italic;
+            margin-bottom: 10px;
+        }
+
+        .review-comment {
+            margin-bottom: 10px;
+        }
+
+        .delete-btn {
+            background-color: #ff6666;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+
+        .update-btn {
+            background-color: #66b3ff;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+
+        form {
+            display: inline-block;
+        }
+
+        input[type="submit"] {
+            padding: 10px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            color: #fff;
+            background-color: #dc3545;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #c82333;
+        }
+
+        /* Style for Watch Name */
+        .watch-name {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        /* Style for Review Form */
+        .review-form {
+            margin-top: 20px;
+        }
+
+        /* Style for Form Fields */
+        .review-form label {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .review-form input[type="text"],
+        .review-form textarea {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        .submit-btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        .submit-btn:hover {
+            background-color: #45a049;
+        }
+
+        .error-message {
+            color: red;
+            margin-top: 5px;
+        }
+        .add_review-center {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 60vh; 
+        }
+
+        .center-content {
+            text-align: center;
+        }
+        </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">   
 </head>
 <body>
     {% if messages %}
-    <div>
+    <div class="message-m">
         <ul class="messages">
             {% for message in messages %}
             <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>

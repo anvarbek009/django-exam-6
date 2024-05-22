@@ -1,8 +1,8 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect,get_object_or_404
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views import View
-from .models import Review,Watch
-from .forms import AddReviewForm,UpdateReviewForm
+from .models import Review,Watch,Order
+from .forms import AddReviewForm,UpdateReviewForm,OrderForm
 from django.urls import reverse_lazy
 from django.http import HttpResponseRedirect 
 from django.contrib import messages
@@ -23,6 +23,15 @@ class WatchListView(View):
         }
         return render(request, 'watch/watch_list.html', context=context)
 
+class SearchResultsView(View):
+    def get(self, request):
+        query = request.GET.get('q')
+        results = Watch.objects.filter(name__icontains=query) if query else []
+        context = {
+           'results': results,
+            'query': query
+        }
+        return render(request, 'watch/watch_list.html', context=context)
 
 class WatchDetailView(View):
     model = Watch
@@ -59,7 +68,7 @@ class AddReviewView(LoginRequiredMixin, View):
             )
             review.save()
             messages.success(request, "Comment qo'shildi.")
-            return redirect('products:watch_detail', pk=pk)
+            return redirect('clocks:watch_detail', pk=pk)
         else:
             context = {
                 'watch': watch,
@@ -73,8 +82,7 @@ class ReviewDeleteView(View):
         watch_pk = review.watch.pk
         review.delete()
         messages.success(request, "Comment o'chirildi.")
-        return HttpResponseRedirect(reverse_lazy('products:watch_detail', kwargs={'pk': watch_pk}))
-
+        return HttpResponseRedirect(reverse_lazy('products:watch_detail', kwargs={'pk': watch_pk}))     
 class ReviewUpdateView(View):
     def get(self, request, pk):
         data = Review.objects.get(pk=pk)

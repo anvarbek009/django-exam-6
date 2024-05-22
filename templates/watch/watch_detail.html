@@ -2,30 +2,39 @@
     <title>{% block title %}{{ watch.name }}{% endblock %} </title>
 
 {% block content %}
-    <h1>{{ watch.name }}</h1>   
-    <img src="{{ watch.image.url }}" alt="its">
-    <h4>Description: {{watch.description}}</h4>
-    <h4>Price: {{watch.price}}</h4>
-    <h4>Created at: {{watch.created_at}}</h4> 
+    <div class="carddd">
+        <h1>{{ watch.name }}</h1>   
+        <img class="watch-img" src="{{ watch.image.url }}" alt="its">
+        <h4>Description: {{watch.description}}</h4>
+        <h4>Price: ${{watch.price}}</h4>
+        <h4>Created at: {{watch.created_at}}</h4> 
+    </div>
 
     <hr><hr>
-    <h2>Reviews</h2>
-    <a href="{% url 'clocks:add_review' watch.pk %}" >Add Review</a>
-    {% for review in reviews %}
-        <h4>{{ review.user.username }} | {{ review.rating }}</h4>
-        <p>{{ review.comment }}</p>
-        {% if user.is_authenticated and review.user == user %}
-        <form method="post" action="{% url 'clocks:review_delete' review.pk %}">
-            {% csrf_token %}
-            <input type="submit" value="Delete">
-        </form>
-        <br>
-        <button><a href="{% url 'clocks:review_update' review.pk  %}">Update</a></button>
-        {% endif %} 
+    <div class="reviews">
+        <h2>Reviews</h2>
+        
+        <a href="{% url 'clocks:add_review' watch.pk %}" >
+            <button class="review-button" >Add Review</button>
+        </a>
+        <hr style="margin:10px;">
+        {% for review in reviews %}
+        <div class="review-item">
+            <div class="review-user">Username: {{ review.user.username }}</div>
+            <div class="review-rating">Rating: {{ review.rating }}</div>
+            <p class="review-comment">Cmomment:{{ review.comment }}</p>
+            
+            {% if user.is_authenticated and review.user == user %}
+            <form method="post" action="{% url 'clocks:review_delete' review.pk %}">
+                {% csrf_token %}
+                <button type="submit" class="delete-btn">Delete</button>
+            </form>
+            <button class="update-btn">
+                <a href="{% url 'clocks:review_update' review.pk %}">Update</a>
+            </button>
+            {% endif %}
+        </div>
         <hr>
-    {% endfor %}
-    <hr><hr>
-    {% for i in  author %}
-        {{ i.first_name }}
-    {% endfor %}
+        {% endfor %}
+    </div>
 {% endblock content %}

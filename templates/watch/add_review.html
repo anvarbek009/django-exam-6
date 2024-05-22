@@ -5,10 +5,15 @@
 </title>
 
 {% block content %}
-<h1>{{watch.name}}</h1>
-    <form method="post">
-        {% csrf_token %}
-        {{ add_review_form.as_p }}
-        <button type="submit">Submit</button>
-    </form>
+<div class="add_review-center">
+    <div class="center-content">
+        <h1 class="watch-name">{{ watch.name }}</h1>
+        <form method="post" class="review-form">
+            {% csrf_token %}
+            {{ add_review_form.as_p }}
+            <button type="submit" class="submit-btn">Submit</button>
+        </form>
+    </div>
+</div>
+
 {% endblock %}

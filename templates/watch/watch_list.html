@@ -1,7 +1,42 @@
 {% extends "base.html" %}
-    <title>{% block title %} Books {% endblock %} </title>
+    <title>{% block title %} Watches{% endblock %} </title>
 
 {% block content %}
+    <div >
+        <div style="margin: 0 auto; max-width: 300px; margin-top: 30px;">
+            <form  class="example-form" method="get" action="{% url 'clocks:search_results' %}">
+                <input class="inputt" type="text" name="q" placeholder="Search for watches...">
+                <button class="button-search" type="submit"><i class="fa fa-search"></i></button>
+            </form>
+        </div>
+
+        {% if results %}
+            <div class="cards">
+                {% for w in results %}
+                    <div class="card">
+                        <img class="watch-img" src="{{ w.image.url }}" alt="its">
+                        <h2>{{w.name}}</h2>
+                        <p class="price">${{ w.price }}</p>
+                        <p><a href="{% url  'clocks:watch_detail' w.pk %}"><button class="card-buttonss"> Batafsil ma'lumot</button></a></p>
+                    </div>
+                {% endfor %}
+
+                <div class="update-order-form">
+                    <h2>Update Order</h2>
+                    <form method="post">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <button type="submit">Update</button>
+                    </form>
+                </div>
+            </div>
+
+        {% else %}
+
+        {% endif %}
+
+    </div>
+
 <div class="cards">
     {% for w in watchs %}
         <div class="card">
